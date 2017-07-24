@@ -25,11 +25,18 @@ MyIni::LoadFile(const char *fname){
         return
     }
 }
-MyIni::GetAllSection(){
-    char buffer[256];
-    int nread = 0;
+char **MyIni::GetAllSection(){
+    char buf[256];
     while((readline = this.ReadLine()) != ""){
-
+        if (readline[0] == '['){
+            for (int i=0;i<256;i++){
+                if (readline[i] != ']')
+                {
+                    buf[i] = readline[i+1];
+                }
+                buf[i] = '\0';
+            }
+        }
     }
 }
 char *Myini::ReadLine(){
@@ -116,5 +123,39 @@ int *MyIni::GetSectionKeyValue(const char *section,const char *key){
 
 }
 char *Myini::GetSectionKeyValue(const char *section,const char *key){
+    char buf[256] = "";
+    char *readline = nil;
+    int nread = 0;
+    while( readline = this.Readline()){
+        if (readline[0] == '['){
+            for(int i=0;i<256;i++){
+                if (readline[i+1] != ']'){
+                    buf[i] = readline[i+1];
+                }
+                if strcmp(buf[i],section){
+                    while(readline = this.Readline()){
+                        for (int i=0;i<256;i++){
+                            if (readline[0] == '#'){
+                                break;
+                            }else if(readline[i] != '\0'){
+                                buf[i] = readline[i];
+                            }else{
+                                if strcmp(buf,key){
+                                    len = strlen(key);
+                                    for(int j=len+1;j<256;j++){
+                                        if(readline[j+1] != '\0'){
+                                            buf[j-len-1] = readline[j+1];
+                                        }
+                                        return buf;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
+
+            }
+        }
+    }
 }
