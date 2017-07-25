@@ -9,11 +9,14 @@ int main(){
     int flag;
     int fd = open("./test",O_RDONLY);
     int nread = 0;
-    char buffer[256] = {};
-    char dst[256]={};
+    char buffer[256] = "";
+    char dst[256]="";
     int len = 0;
+    if (dst[0] == '\0'){
+        printf("hello world!\n");
+    }
     
-    for(int j=0;j<1;j++){
+/*    for(int j=0;j<1;j++){
         nread = read(fd,buffer,256);
         for(int i= 0;i < 256;i++)
         {
@@ -24,7 +27,7 @@ int main(){
         }
        // printf("nread=%s\n",buffer);
         printf("nread=%d\n",nread);
-       // int len = strlen(buffer);
+       // int len = strlen(buffer);*/
        /* for(int i=0;i<24;i++){
             if (buffer[i] == '\n'){
                 buffer[i] = '\0';
@@ -37,7 +40,7 @@ int main(){
                 break;
             }
         }*/
-    }
+   // }
     
     close(fd);
     return 0;
