@@ -12,11 +12,14 @@ class MyIni
         MyIni(){}
         ~MyIni();
         void LoadConfig(const char *fname);
-        char *GetSectionKeyValue(const char *section,void *value);
+        char *GetSectionKeyValue(const char *section,char *value);
+        int GetSectionKeyValue(const char *section,char *value);
         bool LoadConfigFromString(char *config);
+        bool ResolvsSection(char *string);
     private:
         FILE *fp;
         const static int BUFFER_SIZE = 1024;
         Section_key_pair sectionkey[256];
+        static int key;
 };
 #endif

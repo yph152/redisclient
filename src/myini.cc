@@ -6,35 +6,105 @@
 #include <string.h>
 #include <assert.h>
 
-MyIni::MyIni(const char *fname){
-    this->fp = fopen(fname,"rb");
-    assert(this->fp != NULL);
-}
+
 MyIni::~MyIni(){
     fclose(this->fp);
 }
-bool MyIni::LoadConfig(const char *fname){
+void MyIni::LoadConfig(const char *fname){
     this->fp = fopen(fname,"rb");
     if (this->fp == NULL){
+        return ;
+    }
+/*    char config[this->BUFFER_SIZE] = "";
+    while((fgets(buf,this->BUFFER_SIZE,fp)) != NULL){
+        if (buf[0] == '#'){
+            continue;
+        }
+        config = strcat(config,buf);
+    }
+    if (config[0] == '\0'){
         return false;
     }
-    char config[this->BUFFER_SIZE] = "";
-    while((fgets(buf,this->BUFFER_SIZE,fp)) != NULL){
-
-    }
+    this.LoadConfigFromString(config);*/
 }
 bool MyIni::LoadConfigFromString(char *config){
-
+    char buffer[256] = "";
+    int len = strlen(config);
+    int i = 0;
+    int k;
+    while (i < len){
+        if (config[i] == '['){
+            for (int j= i+1,k=0;j<len;j++,k++){
+                if (config[j] == '[' ){
+                    i = j;
+                    break;
+                }
+                buffer[k] = config[j];
+            }
+            this->ResolvsSection(buffer);
+        }
+    }
 }
-bool MyIni::GetSectionKeyValue(const char *section,void *value){
-    char config[this->BUFFER_SIZE] = "";
-    while((fgets(this->buf,this->BUFFER_SIZE+1,this->fp) != NULL)){
-            config = strcat(config,this->buf);
-    }
-    if(config[0] == '\0'){
-        return false;
-    }
+bool MyIni::ResolvsSection(char *str){
+//    int len = strlen(str);
+    char section[56] = "";
+    char key[56] = "";
+    char value[56] = "";
+    char readline[256] = "";
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while (fgets(readline,255,this->fp) != NULL){
+        if (readline[0] == '#' || readline[0] == '\n'){
+            continue;
+        }
+        int len = strlen(readline);
+        readline[len-1] = '\0';
+        if (readline[0] == '['){
+            memset(section,'\0',sizeof(256));
+            for (i=0;i<len;i++){
+                if (readline[i+1] == ']'){
+                    printf("section = %s\n",section);
+                    break;
+                }
+                section[i] = readline[i+1];
+            }
+            continue;
+        }
+        if (strlen(section) == 0){
+            continue;
+        }
+        for (i=0;readline[i] != '='&&i<256;i++ ){
+            key[i] = readline[i];
+        }
+        for (j=i+1,k=0;readline[j]!='\0'&&j<256;j++,k++){
+            value[k] = readline[j];
+        }
+        strcpy(this->sectionkey[this->key].section,section);
+        strcpy(this->sectionkey[this->key].key,key);
+        strcpy(this->sectionkey[this->key].value,value);
+        this->key++;
 
+        printf("%s = %s\n",key,value);
+        memset(key,'\0',sizeof(256));
+        memset(value,'\0',sizeof(256));
+        memset(readline,'\0',sizeof(256));
+    }
+    printf("%d\n",i);
+}
+char *MyIni::GetSectionKeyValue(const char *section,char *key){
+    for (int i=0;i<256;i++){
+        if ( strcmp(this->sectionkey[i].section,section) && strcmp(this.sectionkey[i].key,key)){
+            return this->sectionkey[i].value;
+        }
+    }
+}
+int MyIni::GetSectionKeyValue(const char *section,char *key){
+    for (int i=0;i<256;i++){
+        if ( strcmp(this->sectionkey[i].section,section) && strcmp(this->sectionkey[i].key,key)){
+            return atoi(this->sectionkey[i].value);
+        }
+    }
 }
 /*
 int flag = 0;
