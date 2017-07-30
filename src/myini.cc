@@ -6,7 +6,7 @@
 #include <string.h>
 #include <assert.h>
 
-
+int keys = 0;
 MyIni::~MyIni(){
     fclose(this->fp);
 }
@@ -69,6 +69,7 @@ bool MyIni::ResolvsSection(char *str){
                 }
                 section[i] = readline[i+1];
             }
+            section[i+1] = '\0';
             continue;
         }
         if (strlen(section) == 0){
@@ -80,10 +81,12 @@ bool MyIni::ResolvsSection(char *str){
         for (j=i+1,k=0;readline[j]!='\0'&&j<256;j++,k++){
             value[k] = readline[j];
         }
-        strcpy(this->sectionkey[this->key].section,section);
-        strcpy(this->sectionkey[this->key].key,key);
-        strcpy(this->sectionkey[this->key].value,value);
-        this->key++;
+        strcpy(this->sectionkey[keys].section,section);
+        strcpy(this->sectionkey[keys].key,key);
+        strcpy(this->sectionkey[keys].value,value);
+
+        printf("%s = %s\n",this->sectionkey[keys].key,this->sectionkey[keys].value);
+        keys++;
 
         printf("%s = %s\n",key,value);
         memset(key,'\0',sizeof(256));
@@ -92,14 +95,15 @@ bool MyIni::ResolvsSection(char *str){
     }
     printf("%d\n",i);
 }
-char *MyIni::GetSectionKeyValue(const char *section,char *key){
-    for (int i=0;i<256;i++){
-        if ( strcmp(this->sectionkey[i].section,section) && strcmp(this.sectionkey[i].key,key)){
+char *MyIni::GetSectionKeyValue(const char *section,const char *key){
+    for (int i=0;i<2;i++){
+//        printf("section = %s\n%s = %s\n",this->sectionkey[i].section,this->sectionkey[i].key,this->sectionkey[i].value);
+        if ( (strcmp(this->sectionkey[i].section,section)==0) && (strcmp(this->sectionkey[i].key,key)==0)){
             return this->sectionkey[i].value;
         }
     }
 }
-int MyIni::GetSectionKeyValue(const char *section,char *key){
+int MyIni::GetSectionKeyValueNum(const char *section,char *key){
     for (int i=0;i<256;i++){
         if ( strcmp(this->sectionkey[i].section,section) && strcmp(this->sectionkey[i].key,key)){
             return atoi(this->sectionkey[i].value);
