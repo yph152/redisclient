@@ -13,17 +13,17 @@ class MyLog {
     public:
         MyLog();
         ~MyLog();
-        void MyLogInit(int loglevel,char *filename);
-        void Info(char *format,...);
-        void Warn(char *format,...);
-        void Error(char *format,...);
-        void Debug(char *format,...);
+        void MyLogInit(LogLevel loglevel,const char *filename);
+        void Infof(const char *format);
+        void Warnf(const char *format);
+        void Errorf(const char *format);
+        void Debugf(const char *format);
     private:
-        void writeLogFile(char *pszFileName,char *pszFunctionName,int *codeLine,int *logLevel,char *pszContent);
-        void getTime();
+        void writeLogFile(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *pszContent);
+        void getTime(char *szTimeStr);
     private:
         LogLevel loglevel_;
-        FILE *fd_;
+        FILE *fp_;
 };
 
 #endif

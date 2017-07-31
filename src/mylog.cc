@@ -2,12 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
 
 MyLog::MyLog(){}
-MyLog::~MyLog(){}
-void MyLog::MyLogInit(LogLvel loglevel,const char *filename){
+MyLog::~MyLog(){
+    if (fp_ != NULL){
+        fclose(fp_);
+    }
+}
+void MyLog::MyLogInit(LogLevel loglevel,const char *filename){
     loglevel_ = loglevel;
-    if (filename) == NULL){
+    if (filename == NULL){
         printf("this filename is null...\n");
         return;
     }
@@ -16,36 +22,42 @@ void MyLog::MyLogInit(LogLvel loglevel,const char *filename){
         printf("open file failed...\n");
         return;
     }
-    printf("open file success...\n")
+    printf("open file success...\n");
 }
-void MyLog::Info(const char *format,...){
-    if (loglevel_ == 0){
-        writeLogFile();
+void MyLog::Infof(const char *format){
+    if (loglevel_ >= 0){
+        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
     }
 }
 
-void MyLog::Warn(const char *format,...){
-
+void MyLog::Warnf(const char *format){
+    if (loglevel_ >= 1){
+        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
+    }
 }
-void MyLog::Error(const char *format,...){
-
+void MyLog::Errorf(const char *format){
+    if (loglevel_ >= 2){
+        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
+    }
 }
-void MyLog::Debug(const char *format,...){
-
+void MyLog::Debugf(const char *format){
+    if (loglevel_ >= 3){
+        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
+    }
 }
-void MyLog::writeLogFile(char *pszFileName,char *pszFunctionName,int codeLine,int loglevel,char *Content){
-    char *szLogContent[2048] = {0};
-    char *szTimeStr[128] = {0};
+void MyLog::writeLogFile(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *Content){
+    char szLogContent[2048] = {0};
+    char szLogFormat[1024] = {0};
+    char szTimeStr[128] = {0};
 
     if (pszFileName == NULL || Content == NULL){
         return;
     }
 
     getTime(szTimeStr);
-    fputs(szLogContent,fp);
-
-    snprintf(szLogContent,sizeof(szLogContent)-1,"[%s][%s][%04d][%s]%s\n",pszFileName,pszFunctionName,codeLine,loglevel,Content);
-    fputs(szLogContent,fp);
+    fputs(szTimeStr,fp_);
+    snprintf(szLogContent,sizeof(szLogContent)-1,"[%s][%s][%04d][%s]  %s\n",pszFileName,pszFunctionName,codeLine,"info",Content);
+    fputs(szLogContent,fp_);
 
     fflush(fp_);  //刷新文件
 }
@@ -68,7 +80,7 @@ void MyLog::getTime(char *pszTimeStr){
     gettimeofday(&tTimeVal,NULL);                                                 
                                                                                   
     sprintf(szUser,"%06d",tTimeVal.tv_usec);                                      
-    strncpy(szMsec,szUser,3);                                                     
+    strncpy(szMsec,szUser,6);                                                     
                                                                                   
-    sprintf(pszTimeStr,"[%04d.%02d.%02d %02d:%02d:%02d.%3.3s]",tSysTime.tm_year+1900,tSysTime.tm_mon+1,tSysTime.tm_mday,tSysTime.tm_hour,tSysTime.tm_min,tSysTime.tm_sec,szMsec);
+    sprintf(pszTimeStr,"[%04d-%02d-%02d %02d:%02d:%02d.%3.6s]",tSysTime.tm_year+1900,tSysTime.tm_mon+1,tSysTime.tm_mday,tSysTime.tm_hour,tSysTime.tm_min,tSysTime.tm_sec,szMsec);
 }

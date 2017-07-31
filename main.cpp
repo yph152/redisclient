@@ -3,6 +3,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include "include/myini.h"
+#include "include/mylog.h"
 
 void GetTime(char *pszTimeStr){
     struct tm       tSysTime    = {0};
@@ -33,7 +34,15 @@ enum Day {
 };
 int main()
 {
-    Day day = Saturday;
+    MyLog mylog;
+    LogLevel loglevel = WARN;
+
+    mylog.MyLogInit(loglevel,"./test");
+    for(int i=0;i<10;i++){
+        mylog.Infof("hello world");
+        mylog.Warnf("hahhahah");
+    }
+/*    Day day = Saturday;
     if (day == 0){
         printf("yes...\n");
     }
@@ -41,7 +50,7 @@ int main()
     char str[256] = "hello";
     GetTime(str);
     printf("%s\n",str);
-/*    MyIni ini;
+    MyIni ini;
     char fname[10] = "./test";
     ini.LoadConfig(fname);
     ini.ResolvsSection(fname);
