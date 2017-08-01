@@ -106,3 +106,33 @@ age=21
 [2017-07-31 13:56:56.799413][src/mylog.cc][Warnf][0035][info]  hahhahah
 [2017-07-31 13:56:56.799419][src/mylog.cc][Infof][0029][info]  hello world
 [2017-07-31 13:56:56.799426][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861247][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861337][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861353][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861356][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861359][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861361][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861364][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861367][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861369][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861372][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861374][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861377][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861379][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861382][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861384][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861386][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861399][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861402][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:06:26.861404][src/mylog.cc][Infof][0029][info]  hello world
+[2017-08-01 14:06:26.861407][src/mylog.cc][Warnf][0035][info]  hahhahah
+[2017-08-01 14:15:18.557172][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557234][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557256][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557275][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557293][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557309][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557324][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557358][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557372][main.cpp][main][0042][info]  hello world
+[2017-08-01 14:15:18.557374][main.cpp][main][0042][info]  hello world

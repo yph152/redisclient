@@ -40,7 +40,7 @@ int main()
     mylog.MyLogInit(loglevel,"./test");
     for(int i=0;i<10;i++){
         mylog.Infof("hello world");
-        mylog.Warnf("hahhahah");
+//        mylog.Warnf("hahhahah");
     }
 /*    Day day = Saturday;
     if (day == 0){

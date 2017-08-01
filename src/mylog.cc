@@ -24,27 +24,27 @@ void MyLog::MyLogInit(LogLevel loglevel,const char *filename){
     }
     printf("open file success...\n");
 }
-void MyLog::Infof(const char *format){
+void MyLog::INFOF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
     if (loglevel_ >= 0){
-        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
     }
 }
 
-void MyLog::Warnf(const char *format){
+void MyLog::WARNF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
     if (loglevel_ >= 1){
-        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
     }
 }
-void MyLog::Errorf(const char *format){
+void MyLog::ERRORF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
     if (loglevel_ >= 2){
-        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
     }
 }
-void MyLog::Debugf(const char *format){
+void MyLog::DEBUGF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
     if (loglevel_ >= 3){
-        writeLogFile(__FILE__,__FUNCTION__,__LINE__,format);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
     }
-}
+}*/
 void MyLog::writeLogFile(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *Content){
     char szLogContent[2048] = {0};
     char szLogFormat[1024] = {0};

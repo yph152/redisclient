@@ -3,6 +3,11 @@
 
 
 #include <stdio.h>
+
+#define Infof(pszContent)    INFOF(__FILE__,__FUNCTION__,__LINE__,pszContent)
+#define Warnf(pszContent)    WARNF(__FILE__,__FUNCTION__,__LINE__,pszContent)
+#define Errorf(pszContent)   ERRORF(__FILE__,__FUNCTION__,__LINE__,pszContent)
+#define Debugf(pszContent)   DEBUGF(__FILE__,__FUNCTION__,__LINE__,pszContent)
 enum LogLevel {
     INFO = 0,
     WARN = 1,
@@ -14,10 +19,10 @@ class MyLog {
         MyLog();
         ~MyLog();
         void MyLogInit(LogLevel loglevel,const char *filename);
-        void Infof(const char *format);
-        void Warnf(const char *format);
-        void Errorf(const char *format);
-        void Debugf(const char *format);
+        void INFOF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format);
+        void WARNF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format);
+        void ERRORF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format);
+        void DEBUGF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format);
     private:
         void writeLogFile(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *pszContent);
         void getTime(char *szTimeStr);
