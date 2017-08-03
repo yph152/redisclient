@@ -38,8 +38,9 @@ int main()
     LogLevel loglevel = WARN;
 
     mylog.MyLogInit(loglevel,"./test");
+    char str[12] = "hahha";
     for(int i=0;i<10;i++){
-        mylog.Infof("hello world");
+        mylog.Infof("hello world %s %d",str,i);
 //        mylog.Warnf("hahhahah");
     }
 /*    Day day = Saturday;

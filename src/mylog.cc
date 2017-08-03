@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
+#include <stdarg.h>
 
 MyLog::MyLog(){}
 MyLog::~MyLog(){
@@ -24,27 +25,47 @@ void MyLog::MyLogInit(LogLevel loglevel,const char *filename){
     }
     printf("open file success...\n");
 }
-void MyLog::INFOF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
+void MyLog::INFOF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...){
     if (loglevel_ >= 0){
-        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
+        char Content[1024] = {0};
+        va_list ap;
+        va_start(ap,format);
+        vsnprintf(Content,sizeof(Content)-1,format,ap);
+        va_end(ap);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,Content);
     }
 }
 
-void MyLog::WARNF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
+void MyLog::WARNF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...){
     if (loglevel_ >= 1){
-        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
+        char Content[1024] = {0};
+        va_list ap;
+        va_start(ap,format);
+        vsnprintf(Content,sizeof(Content)-1,format,ap);
+        va_end(ap);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,Content);
     }
 }
-void MyLog::ERRORF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
+void MyLog::ERRORF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...){
     if (loglevel_ >= 2){
-        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
+        char Content[1024] = {0};
+        va_list ap;
+        va_start(ap,format);
+        vsnprintf(Content,sizeof(Content)-1,format,ap);
+        va_end(ap);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,Content);
     }
 }
-void MyLog::DEBUGF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format){
+void MyLog::DEBUGF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...){
     if (loglevel_ >= 3){
-        writeLogFile(pszFileName,pszFunctionName,codeLine,format);
+        char Content[1024] = {0};
+        va_list ap;
+        va_start(ap,format);
+        vsnprintf(Content,sizeof(Content)-1,format,ap);
+        va_end(ap);
+        writeLogFile(pszFileName,pszFunctionName,codeLine,Content);
     }
-}*/
+}
 void MyLog::writeLogFile(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *Content){
     char szLogContent[2048] = {0};
     char szLogFormat[1024] = {0};
