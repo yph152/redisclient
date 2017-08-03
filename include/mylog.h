@@ -19,6 +19,7 @@ class MyLog {
         MyLog();
         ~MyLog();
         void MyLogInit(LogLevel loglevel,const char *filename);
+        void ResetLogLevel(LogLevel newloglevel);
         void INFOF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...);
         void WARNF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...);
         void ERRORF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...);

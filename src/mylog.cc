@@ -25,6 +25,11 @@ void MyLog::MyLogInit(LogLevel loglevel,const char *filename){
     }
     printf("open file success...\n");
 }
+
+void MyLog::ResetLogLevel(LogLevel newloglevel){
+    loglevel_ = newloglevel;
+}
+
 void MyLog::INFOF(const char *pszFileName,const char *pszFunctionName,int codeLine,const char *format,...){
     if (loglevel_ >= 0){
         char Content[1024] = {0};
