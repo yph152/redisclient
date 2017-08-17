@@ -40,7 +40,7 @@ const char *RedisCli::getCmd(std::vector<std::string> args){
     }
     return cmdString;
 }
-char *dealReply(char *reply){
+char *RedisCli::dealReply(char *reply){
     char responType = reply[0];
 
     switch (responType){
@@ -50,7 +50,7 @@ char *dealReply(char *reply){
     }
 }
 //处理状态响应
-char *dealStatusReply(char *reply){
+char *RedisCli::dealStatusReply(char *reply){
     char buf[56] = {0};
     for(int i=0;i<56;i++){
         if (reply[i+1] == '\r'){
@@ -61,7 +61,7 @@ char *dealStatusReply(char *reply){
     return buf;
 }
 //处理主体响应
-char *dealBulkReply(char *reply){
+char *RedisCli::dealBulkReply(char *reply){
     char buf[56] = {0};
     for (int i=0;i<56;i++){
         if (reply[i+1] == '\r'){
@@ -75,4 +75,35 @@ char *dealBulkReply(char *reply){
     }
     f
 }
-
+char **RedisCli::kong(const char *str){
+	char command[3][56] = {};
+	char buf[56] = {};
+	int len = strlen(str);
+	int j = 0;
+	int i = 0;
+	int k = len;
+	int s = 0;
+	int n = 0;
+	while(str[i] == ' '){
+		i++;
+	}
+	while(str[k] == ' '){
+		k--;
+	}
+	for(;i<=k;){
+		while(str[i] != ' '){
+			buf[s] = str[i];
+			s++;
+			i++;
+		}
+		buf[s] = '\0';
+		strcpy(command[n],buf);
+		memset(buf,'\0',56);
+		n++;
+		s=0;
+		while(str[i] == ' '){
+			i++;
+		}
+	}
+	return command;
+}

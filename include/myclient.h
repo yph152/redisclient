@@ -24,6 +24,7 @@ class RedisCli{
         ~RedisCli();
     private:
         //将参数转化为redis协议
+	char **kong(const char *str);
         char *getCmd(char **str);
         void *delReply(char *reply);
         //处理状态响应
