@@ -1,7 +1,4 @@
 #include "../include/myclient.h"
-#include <string>
-#include <vector>
-#include <sstream>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -26,17 +23,15 @@ RedisCli::Conn(const char *ip,int port){
 
 }
 // 将参数转化为redis 请求协议
-const char *RedisCli::getCmd(std::vector<std::string> args){
-    std::stringstream ss;
-    int len =  args.size();
-    ss<<len;
-    std::string cmdString;
+const char *RedisCli::getCmd(char** args){
+    int len =  3;
     int strlen = 0;
-    cmdString = "*" + ss.str() + "\r\n";
+    char str[4] = {};
+    itoa(3, str, 10);
+    
     for(int i=0;i<len;i++){
-        strlen = args[i].size();
-        ss<<strlen;
-        cmdString = "$" + ss.str() + "\r\n" + args[i] + "\r\n";
+        strlen = strlen(args[i]);
+        cmdString = "$" + itoa(strlen) + "\r\n" + args[i] + "\r\n";
     }
     return cmdString;
 }
@@ -74,6 +69,9 @@ char *RedisCli::dealBulkReply(char *reply){
         return NULL
     }
     f
+}
+char *RedisCli::SendCommand(char *command,...){
+
 }
 char **RedisCli::kong(const char *str){
 	char command[3][56] = {};
