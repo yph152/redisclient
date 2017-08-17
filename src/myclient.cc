@@ -2,8 +2,27 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <assert.h>
 
-RedisCli::Conn(){
+RedisCli::Conn(const char *ip,int port){
+    sockfd_ = socket(PF_INET,SOCK_STREAM,0);
+    assert( sockfd_ >= 0);
+
+    struct sockaddr_in address;
+    bzero(&address,sizeof(address));
+    address.sin_family = AF_INET;
+    inet_pton(AF_INET,ip,&address.sin_addr);
+
+    address.sin_port = htons(port);
+
+    int ret = connect(sockfd_,(struct sockaddr*)&address,sizeof(address) );
+
+    assert(ret >= 0);
 
 }
 // 将参数转化为redis 请求协议

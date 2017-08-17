@@ -22,8 +22,6 @@ class RedisCli{
     public:
         RedisCli();
         ~RedisCli();
-        bool Conn();
-
     private:
         //将参数转化为redis协议
         char *getCmd(char **str);
@@ -33,14 +31,15 @@ class RedisCli{
         //处理主体响应
         void *dealBulkReply(char *reply);
 
+    public:
+        Connect(const char *ip,int port);
+        SendCommand(const char *command);
     private:
         int err;
         char errstr[128];
-        int fd;
+        int sockfd;
         int flag;
         char *obuf;
-        struct timeval *timeout;
-        char   **command_;
 };
 
 #endif
